@@ -20,7 +20,7 @@ args = parser.parse_args()
 create_dir = "mkdir -p %s"
 git_init = 'git init'
 git_commit = 'git commit --allow-empty -m "Hackerman"'
-commit_date_change = 'GIT_COMMITTER_DATE="%s" git commit --amend --allow-empty --no-edit --date "%s"'
+commit_date_change = 'GIT_COMMITTER_DATE="{tstamp}";GIT_AUTHOR_DATE="{tstamp}"; git commit --amend --allow-empty --no-edit --date "{tstamp}"'
 del_all_commits = 'git branch -D master'
 
 # function definitions
@@ -40,7 +40,7 @@ def get_xth_date(start_date, n):
 def commit_n_times(n,tstamp):
     for _ in range(n):
         run_command(git_commit)
-        run_command(commit_date_change%(tstamp,tstamp))
+        run_command(commit_date_change.format(tstamp=tstamp))
 
 # Main Funcion
 def main():
